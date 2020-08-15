@@ -1,0 +1,30 @@
+Problem Name: Non-overlapping Intervals
+https://leetcode.com/explore/challenge/card/august-leetcoding-challenge/551/week-3-august-15th-august-21st/3425/
+
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        if(intervals.length == 0) return 0;
+        Arrays.sort(intervals, new Comparator<int[]>(){
+            
+            @Override
+            public int compare(int[] a,int[] b){
+                return a[0] - b[0];
+            }
+        });
+        int prevEnd = intervals[0][1];
+        int result = 0;
+        for(int i = 1; i < intervals.length; i++){
+            if(prevEnd <= intervals[i][0]){
+                prevEnd = intervals[i][1];
+            }
+            else if (prevEnd > intervals[i][0] && prevEnd >= intervals[i][1]){
+                 result++;
+                 prevEnd = intervals[i][1];
+            }
+            else {
+                result++;
+            }
+        }
+        return result;
+    }
+}
